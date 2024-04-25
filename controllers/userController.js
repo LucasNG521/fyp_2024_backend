@@ -53,7 +53,8 @@ exports.updateUser = async (req, res) => {
 exports.deleteUser = async (req, res) => {
     try {
         const userId = req.params.id;
-        await userModel.deleteUser(userId);
+        // await userModel.deleteUser(userId);
+        await userModel.deleteUser(userId, {active: false});
         res.status(200).json({ message: 'User deleted successfully' });
     } catch (error) {
         res.status(500).json({ message: error.message });

@@ -32,7 +32,13 @@ const userModel = {
     createUser: async (userData) => {
         try {
             const userRef = await usersCollection.add(userData);
-            return { id: userRef.id, ...userData };
+            const userId = userRef.id;
+            
+            const userDataWithId = { ...userData, userId };
+            
+            await userRef.set(userDataWithId);
+            
+            return userDataWithId;
         } catch (error) {
             throw error;
         }
@@ -81,9 +87,10 @@ const userModel = {
     },
 
 
-    deleteUser: async (userId) => {
+    deleteUser: async (userId, active) => {
         try {
-            await usersCollection.doc(userId).delete();
+            // await usersCollection.doc(userId).delete();
+            await usersCollection.doc(userId).update(active);
             console.log('User deleted successfully!');
         } catch (error) {
             console.error('Error deleting user: ', error);
