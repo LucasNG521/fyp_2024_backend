@@ -1,0 +1,7 @@
+# Dependency directories
+node_modules/
+
+# Environment configuration files
+.env
+firebase-service-account.json
+package-lock.json
