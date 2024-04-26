@@ -68,6 +68,7 @@ function generateReportData(num) {
 
         reports.push({
             userId: faker.string.uuid(),
+            reportId: faker.string.uuid(),
             // animalId: faker.string.uuid(),
             gender: faker.helpers.arrayElement(['male', 'female']),
             age: faker.number.int({ min: 1, max: 15 }),
@@ -96,6 +97,7 @@ function generateAnimalHLSData(num) {
         let disappearTime = new Date(faker.date.recent()).getTime();
         let appearTime = new Date(faker.date.recent({refDate: disappearTime})).getTime();
         animalHLS.push({
+            id: faker.string.uuid(),
             url: faker.internet.url(),
             animalId: faker.string.uuid(),
             AppearDate: new Date(faker.date.recent()).getFullYear() + '-' + (new Date(faker.date.recent()).getMonth() + 1 )+ '-' + new Date(faker.date.recent()).getDate(),
@@ -110,8 +112,8 @@ function generateAnimalHLSData(num) {
 
 
 // Example usage
-console.log(generateUsers(10));
-console.log(generateAnimals(20));
-console.log(generateCameraData(10));
+// console.log(generateUsers(10));
+// console.log(generateAnimals(20));
+// console.log(generateCameraData(10));
 console.log(generateReportData(7));
-console.log(generateAnimalHLSData(10));
+// console.log(generateAnimalHLSData(10));

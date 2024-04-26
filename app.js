@@ -5,6 +5,9 @@ const cors = require('cors');
 
 const userRoutes = require('./routes/userRoutes');
 const animalRoutes = require('./routes/animalRoutes');
+const animalHLSRoutes = require('./routes/animalHLSRoutes');
+const cameraRoutes = require('./routes/cameraRoutes');
+const reportRoutes = require('./routes/reportRoutes');
 
 
 const app = express();
@@ -18,9 +21,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/users', userRoutes);
 app.use('/animals', animalRoutes);
-
-
-
+app.use('/animalHLS', animalHLSRoutes);
+app.use('/cameras', cameraRoutes);
+app.use('/reports', reportRoutes);
 
 
 
