@@ -791,7 +791,7 @@ const reportsData = [
 const reportsCollection = db.collection('reports');
 
 reportsData.forEach(reportData => {
-  const docRef = reportsCollection.doc();
+  const docRef = reportsCollection.doc(reportData.reportId);
   batch.set(docRef, reportData);
 });
 

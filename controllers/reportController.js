@@ -19,6 +19,16 @@ exports.getReport = async (req, res) => {
     }
 };
 
+exports.getReportByUser = async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const report = await reportModel.getReportByUserId(userId);
+        res.status(200).json(report);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 exports.addReport = async (req, res) => {
     try {
         const data = req.body;

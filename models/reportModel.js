@@ -28,6 +28,25 @@ const reportModel = {
         }
     },
 
+    getReportByUserId: async (userId) => {
+        try {
+            const querySnapshot = await reportsCollection.where('userId', '==', userId).get();
+            const reportData = [];
+    
+            querySnapshot.forEach(doc => {
+                if (doc.exists) {
+                    reportData.push(doc.data());
+                } else {
+                    throw new Error('HLS not found');
+                }
+            });
+    
+            return reportData;
+        } catch (error) {
+            throw error;
+        }
+    },
+
     addReport: async (data) => {
         try {
             const reportRef = await reportsCollection.add(data);
