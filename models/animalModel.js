@@ -8,7 +8,7 @@ const animalModel = {
             const animalDoc = await animalsCollection.get();
             const animals = [];
             animalDoc.forEach(doc => {
-                animals.push({ id: doc.id, ...doc.data() });
+                if (doc.data().active != false) animals.push(doc.data());
             });
             return animals;
         } catch (error) {
@@ -28,36 +28,43 @@ const animalModel = {
         }
     },
 
-    // createUser: async (userData) => {
-    //     try {
-    //         const userRef = await usersCollection.add(userData);
-    //         return { id: userRef.id, ...userData };
-    //     } catch (error) {
-    //         throw error;
-    //     }
-    // },
+    addAnimal: async (data) => {
+        try {
+            const animalRef = await animalsCollection.add(data);
+            const animalId = animalRef.id;
+
+            const dataWithId = { ...data, animalId };
+            
+            await animalRef.set(dataWithId);
+            
+            return dataWithId;
+        } catch (error) {
+            throw error;
+        }
+    },
 
 
-    // updateUser: async (userId, newData) => {
-    //     try {
-    //         await usersCollection.doc(userId).update(newData);
-    //         console.log('User updated successfully!');
-    //     } catch (error) {
-    //         console.error('Error updating user: ', error);
-    //         throw error;
-    //     }
-    // },
+    updateAnimal: async (animalId, newData) => {
+        try {
+            await animalsCollection.doc(animalId).update(newData);
+            console.log('animal updated successfully!');
+        } catch (error) {
+            console.error('Error updating animal: ', error);
+            throw error;
+        }
+    },
 
 
-    // deleteUser: async (userId) => {
-    //     try {
-    //         await usersCollection.doc(userId).delete();
-    //         console.log('User deleted successfully!');
-    //     } catch (error) {
-    //         console.error('Error deleting user: ', error);
-    //         throw error;
-    //     }
-    // }
+    deleteAnimal: async (animalId, active) => {
+        try {
+            // await animalsCollection.doc(animalId).delete();
+            await animalsCollection.doc(animalId).update(active);
+            console.log('animal deleted successfully!');
+        } catch (error) {
+            console.error('Error deleting animal: ', error);
+            throw error;
+        }
+    }
 };
 
 module.exports = animalModel;

@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const { getAllAnimals, getAnimal, addUser, updateUser, deleteUser } = require('../controllers/animalController');
+const { getAllAnimals, getAnimal, addAnimal, updateAnimal, deleteAnimal } = require('../controllers/animalController');
 
 router.get('/', getAllAnimals);
 
 router.get('/:id', getAnimal);
 
-// router.post('/', addUser);
+router.post('/', addAnimal);
 
-// router.put('/:id', updateUser);
+router.put('/:id', updateAnimal);
 
-// router.delete('/:id', deleteUser);
+router.delete('/:id', deleteAnimal);
 
 module.exports = router;

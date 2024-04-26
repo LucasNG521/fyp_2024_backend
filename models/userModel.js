@@ -9,7 +9,7 @@ const userModel = {
             const userDoc = await usersCollection.get();
             const users = [];
             userDoc.forEach(doc => {
-                users.push({ id: doc.id, ...doc.data() });
+                if (doc.data().active != false) users.push(doc.data());
             });
             return users;
         } catch (error) {
