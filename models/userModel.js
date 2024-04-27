@@ -1,5 +1,6 @@
 const { db } = require('../firebase');
 const jwt = require('jsonwebtoken');
+const { logActivity } = require('../utils/activityLogger');
 
 const usersCollection = db.collection('users');
 
@@ -52,6 +53,9 @@ const userModel = {
             }
             const user = userDoc.docs[0].data();
             const token = jwt.sign({ userId: user.email}, 'secret_key', { expiresIn: '1h' });
+
+            await logActivity(`User login : ${email}`, user.userId);
+
             return { token, ...user };
         } catch (error) {
             throw error;
@@ -79,6 +83,9 @@ const userModel = {
     updateUser: async (userId, newData) => {
         try {
             await usersCollection.doc(userId).update(newData);
+
+            await logActivity(`User details has been updated: ${userId} - ${JSON.stringify(newData)}`, userId );
+
             console.log('User updated successfully!');
         } catch (error) {
             console.error('Error updating user: ', error);
@@ -91,6 +98,9 @@ const userModel = {
         try {
             // await usersCollection.doc(userId).delete();
             await usersCollection.doc(userId).update(active);
+
+            await logActivity(`User deleted : ${userId}`, userId );
+
             console.log('User deleted successfully!');
         } catch (error) {
             console.error('Error deleting user: ', error);

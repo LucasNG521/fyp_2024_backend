@@ -1,4 +1,5 @@
 const { db } = require('../firebase');
+const { getHLSByAnimalId } = require('./animalHLSModel');
 
 const animalsCollection = db.collection('animals');
 
@@ -23,6 +24,21 @@ const animalModel = {
                 throw new Error('animal not found');
             }
             return animalDoc.data();
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    getAnimalByIdWithHLS: async (animalId) => {
+        try {
+            const animalDoc = await animalsCollection.doc(animalId).get();
+            const HLS = await getHLSByAnimalId(animalId);
+            if (!animalDoc.exists) {
+                throw new Error('animal not found');
+            }
+
+            return { ...animalDoc.data(), HLS };
+
         } catch (error) {
             throw error;
         }

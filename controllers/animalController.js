@@ -12,7 +12,8 @@ exports.getAllAnimals = async (req, res) => {
 exports.getAnimal = async (req, res) => {
     try {
         const animalId = req.params.id;
-        const animal = await animalModel.getAnimalById(animalId);
+        // const animal = await animalModel.getAnimalById(animalId);
+        const animal = await animalModel.getAnimalByIdWithHLS(animalId);
         res.status(200).json(animal);
     } catch (error) {
         res.status(500).json({ message: error.message });
