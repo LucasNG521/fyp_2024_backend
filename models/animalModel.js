@@ -8,9 +8,16 @@ const animalModel = {
         try {
             const animalDoc = await animalsCollection.get();
             const animals = [];
-            animalDoc.forEach(doc => {
-                if (doc.data().active != false) animals.push(doc.data());
+
+            const animalPromises = animalDoc.docs.map(async doc => {
+                if (doc.data().active != false) {
+                    const HLS = await getHLSByAnimalId(doc.data().animalId);
+                    animals.push({...doc.data(), HLS});
+                }
             });
+
+            await Promise.all(animalPromises);
+
             return animals;
         } catch (error) {
             throw error;
