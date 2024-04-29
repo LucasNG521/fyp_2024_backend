@@ -76,7 +76,7 @@ app.post('/upload', upload.array('files', 10), async (req, res) => {
   try {
     await Promise.all(req.files.map(file => {
         return new Promise((resolve, reject) => {
-            const bucket = storage.bucket('gs://fyp-2-20fa1.appspot.com');
+            const bucket = storage.bucket('gs://fyp-2024-89982.appspot.com');
             const fileUpload = bucket.file(file.originalname);
 
             const blobStream = fileUpload.createWriteStream({
