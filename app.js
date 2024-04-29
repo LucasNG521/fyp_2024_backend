@@ -109,6 +109,20 @@ app.post('/upload', upload.array('files', 10), async (req, res) => {
 }
 });
 
+app.get('/activityLogs', async (req, res) => {
+  try {
+      const activityLogsCollection = db.collection('activityLogs');
+      const activityLogs = await activityLogsCollection.get();
+      const logs = [];
+      activityLogs.forEach(doc => {
+          logs.push(doc.data());
+      });
+      res.status(200).json(logs);
+  } catch (error) {
+      res.status(500).json({ message: error.message });
+  }
+})
+
 
 app.get('/', (req, res) => {
   res.send('Welcome!');

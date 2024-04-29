@@ -100,11 +100,11 @@ function generateAnimalHLSData(num) {
             id: faker.string.uuid(),
             url: faker.internet.url(),
             animalId: faker.string.uuid(),
-            AppearDate: new Date(faker.date.recent()).getFullYear() + '-' + (new Date(faker.date.recent()).getMonth() + 1 )+ '-' + new Date(faker.date.recent()).getDate(),
-            AppearTime: appearTime,
-            DisappearDate: new Date(faker.date.recent()).getFullYear() + '-' + (new Date(faker.date.recent()).getMonth() + 1 )+ '-' + new Date(faker.date.recent()).getDate(),
-            DisappearTime: disappearTime,
-            
+            appearDate: new Date(faker.date.recent()).getFullYear() + '-' + (new Date(faker.date.recent()).getMonth() + 1 )+ '-' + new Date(faker.date.recent()).getDate(),
+            appearTime: appearTime,
+            disappearDate: new Date(faker.date.recent()).getFullYear() + '-' + (new Date(faker.date.recent()).getMonth() + 1 )+ '-' + new Date(faker.date.recent()).getDate(),
+            disappearTime: disappearTime,
+            captureImage: faker.image.imageUrl()
         });
     }
     return animalHLS;
@@ -113,7 +113,7 @@ function generateAnimalHLSData(num) {
 
 // Example usage
 // console.log(generateUsers(10));
-// console.log(generateAnimals(20));
+console.log(generateAnimals(30));
 // console.log(generateCameraData(10));
-console.log(generateReportData(7));
+// console.log(generateReportData(7));
 // console.log(generateAnimalHLSData(10));
