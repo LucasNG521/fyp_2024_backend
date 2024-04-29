@@ -38,7 +38,9 @@ const userModel = {
             const userDataWithId = { ...userData, userId };
             
             await userRef.set(userDataWithId);
-            
+
+            await logActivity(`User Created : ${userData.email}`, userData.userId);
+
             return userDataWithId;
         } catch (error) {
             throw error;
@@ -84,7 +86,7 @@ const userModel = {
         try {
             await usersCollection.doc(userId).update(newData);
 
-            await logActivity(`User details has been updated: ${userId} - ${JSON.stringify(newData)}`, userId );
+            await logActivity(`User details has been updated: ${userId}`, userId );
 
             console.log('User updated successfully!');
         } catch (error) {

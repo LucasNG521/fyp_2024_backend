@@ -59,7 +59,9 @@ const animalModel = {
             const dataWithId = { ...data, animalId };
             
             await animalRef.set(dataWithId);
-            
+
+            await logActivity(`New animal created: ${animalId}`, animalId);
+
             return dataWithId;
         } catch (error) {
             throw error;
@@ -70,6 +72,9 @@ const animalModel = {
     updateAnimal: async (animalId, newData) => {
         try {
             await animalsCollection.doc(animalId).update(newData);
+
+            await logActivity(`Animal details updated: ${animalId}`, animalId);
+
             console.log('animal updated successfully!');
         } catch (error) {
             console.error('Error updating animal: ', error);
@@ -82,6 +87,9 @@ const animalModel = {
         try {
             // await animalsCollection.doc(animalId).delete();
             await animalsCollection.doc(animalId).update(active);
+
+            await logActivity(`Animal deleted: ${animalId}`, animalId);
+
             console.log('animal deleted successfully!');
         } catch (error) {
             console.error('Error deleting animal: ', error);

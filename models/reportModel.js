@@ -55,7 +55,9 @@ const reportModel = {
             const dataWithId = { ...data, reportId };
             
             await reportRef.set(dataWithId);
-            
+
+            await logActivity(`Received new report: ${reportId}`, reportId);
+
             return dataWithId;
         } catch (error) {
             throw error;
@@ -66,6 +68,9 @@ const reportModel = {
     updateReport: async (reportId, newData) => {
         try {
             await reportsCollection.doc(reportId).update(newData);
+
+            await logActivity(`Report updated: ${reportId}`, reportId);
+
             console.log('report updated successfully!');
         } catch (error) {
             console.error('Error updating report: ', error);
@@ -78,6 +83,9 @@ const reportModel = {
         try {
             // await reportsCollection.doc(reportId).delete();
             await reportsCollection.doc(reportId).update(active);
+
+            await logActivity(`Report deleted: ${reportId}`, reportId);
+
             console.log('report deleted successfully!');
         } catch (error) {
             console.error('Error deleting report: ', error);
