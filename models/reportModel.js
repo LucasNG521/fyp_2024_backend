@@ -1,4 +1,5 @@
 const { db } = require('../firebase');
+const { logActivity } = require('../utils/activityLogger');
 
 const reportsCollection = db.collection('reports');
 

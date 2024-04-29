@@ -1,5 +1,6 @@
 const { db } = require('../firebase');
 const { getHLSByAnimalId } = require('./animalHLSModel');
+const { logActivity } = require('../utils/activityLogger');
 
 const animalsCollection = db.collection('animals');
 
