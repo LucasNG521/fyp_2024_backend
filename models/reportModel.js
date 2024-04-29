@@ -36,9 +36,9 @@ const reportModel = {
     
             querySnapshot.forEach(doc => {
                 if (doc.exists) {
-                    reportData.push(doc.data());
+                    if (doc.data().active != false)  reportData.push(doc.data());                   
                 } else {
-                    throw new Error('HLS not found');
+                    throw new Error('report not found');
                 }
             });
     
